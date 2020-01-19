@@ -1,0 +1,89 @@
+
+Starting Unicycler (2020-01-16 18:24:16)
+----------------------------------------
+    Welcome to Unicycler, an assembly pipeline for bacterial genomes. Since you provided only long reads, Unicycler will assemble the reads with miniasm and then run repeated polishing rounds using Racon.
+    For more information, please see https://github.com/rrwick/Unicycler
+
+Command: /isg/shared/apps/unicycler/0.4.8/unicycler-runner.py -l /projects/EBP/Wegrzyn/Moss/Physcomitrellopsis_africana/mitochondria/mapped.fastq -o /projects/EBP/Wegrzyn/Moss/Physcomitrellopsis_africana/mitochondria/Unicycler --keep 2 --threads 8
+
+Unicycler version: v0.4.8
+Using 8 threads
+
+The output directory already exists and files may be reused or overwritten:
+  /projects/EBP/Wegrzyn/Moss/Physcomitrellopsis_africana/mitochondria/Unicycler
+
+Dependencies:
+  Program         Version   Status  
+  spades.py                 not used
+  racon           -         good    
+  makeblastdb     2.7.1+    good    
+  tblastn         2.7.1+    good    
+  bowtie2-build             not used
+  bowtie2                   not used
+  samtools                  not used
+  java                      not used
+  pilon                     not used
+  bcftools                  not used
+
+
+Loading reads (2020-01-16 18:24:17)
+-----------------------------------
+126,444 / 126,444 (100.0%) - 500,243,066 bp
+
+Duplicate read names found. Saving duplicate-free file:
+/projects/EBP/Wegrzyn/Moss/Physcomitrellopsis_africana/mitochondria/Unicycler/mapped_no_duplicates.fastq.gz
+
+
+Assembling contigs and long reads with miniasm (2020-01-16 18:31:59)
+--------------------------------------------------------------------
+Saving to /projects/EBP/Wegrzyn/Moss/Physcomitrellopsis_africana/mitochondria/Unicycler/miniasm_assembly/01_assembly_reads.fastq:
+  126,444 long reads
+
+Finding overlaps with minimap... 
+success
+  44,460,078 overlaps
+
+Assembling reads with miniasm... 
+success
+  47 segments, 42 links
+
+Saving /projects/EBP/Wegrzyn/Moss/Physcomitrellopsis_africana/mitochondria/Unicycler/miniasm_assembly/11_branching_paths_removed.gfa
+Merging segments into unitigs:
+  1 circular unitig
+  5 linear unitigs
+  total size = 350,843 bp
+Saving /projects/EBP/Wegrzyn/Moss/Physcomitrellopsis_africana/mitochondria/Unicycler/miniasm_assembly/12_unitig_graph.gfa
+Saving /projects/EBP/Wegrzyn/Moss/Physcomitrellopsis_africana/mitochondria/Unicycler/002_unitig_graph.gfa
+
+
+Polishing miniasm assembly with Racon (2020-01-16 18:40:04)
+-----------------------------------------------------------
+    Unicycler now uses Racon to polish the miniasm assembly. It does multiple rounds of polishing to get the best consensus. Circular unitigs are rotated between rounds such that all parts (including the ends) are polished well.
+
+Saving to /projects/EBP/Wegrzyn/Moss/Physcomitrellopsis_africana/mitochondria/Unicycler/miniasm_assembly/racon_polish/polishing_reads.fastq:
+  126,444 long reads
+
+Polish       Assembly          Mapping
+round            size          quality
+begin         350,843        40,583.19
+1             364,890        70,234.57
+2             374,773        69,704.69
+3             382,924        69,607.32
+
+Best polish: /projects/EBP/Wegrzyn/Moss/Physcomitrellopsis_africana/mitochondria/Unicycler/miniasm_assembly/racon_polish/006_rotated.fasta
+Saving /projects/EBP/Wegrzyn/Moss/Physcomitrellopsis_africana/mitochondria/Unicycler/miniasm_assembly/13_racon_polished.gfa
+Saving /projects/EBP/Wegrzyn/Moss/Physcomitrellopsis_africana/mitochondria/Unicycler/003_racon_polished.gfa
+
+
+Rotating completed replicons (2020-01-17 01:09:08)
+--------------------------------------------------
+    Any completed circular contigs (i.e. single contigs which have one link connecting end to start) can have their start position changed without altering the sequence. For consistency, Unicycler now searches for a starting gene (dnaA or repA) in each such contig, and if one is found, the contig is rotated to start with that gene on the forward strand.
+
+Segment   Length    Depth   Starting gene   Position   Strand   Identity   Coverage
+      1   106,634   1.00x   none found                                             
+
+
+Assembly complete (2020-01-17 01:09:44)
+---------------------------------------
+Saving /projects/EBP/Wegrzyn/Moss/Physcomitrellopsis_africana/mitochondria/Unicycler/assembly.gfa
+
